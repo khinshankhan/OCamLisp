@@ -29,13 +29,23 @@ let char = '\\' _
 
 rule read =
   parse
+  | blank    { read lexbuf }
+  | newline  { next_line lexbuf; read lexbuf }
+
+  | "#t" { BOOL true }
+  | "#f" { BOOL false }
+  | char { CHAR (String.get (lexeme lexbuf) 1) }
+  | '"' { read_string (Buffer.create 17) lexbuf }
+  | int { INT (int_of_string (lexeme lexbuf)) }
+  | float { FLOAT (float_of_string (lexeme lexbuf)) }
+  | identifier { SYM (lexeme lexbuf) }
+
   | '(' { LPAREN }
   | ')' { RPAREN }
   | '[' { LBRACKET }
   | ']' { RBRACKET }
 
   | eof { EOF }
-  | _ { raise (SyntaxError ("Unexpected character: " ^ Lexing.lexeme lexbuf)) }
 
 and read_string buf =
   parse
