@@ -22,3 +22,6 @@ prog:
 sexp:
   | atom { Atom $1 }
   | cons { Cons $1 }
+
+cons:
+| LPAREN elems RPAREN { $2 }
