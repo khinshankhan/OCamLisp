@@ -34,3 +34,7 @@ atom:
 
 cons:
   | LPAREN elems RPAREN { $2 }
+
+elems:
+  | { [] }
+  | sexp elems { $1 :: $2 }
