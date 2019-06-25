@@ -18,3 +18,7 @@
 prog:
   | EOF       { [] }
   | sexp prog { $1 :: $2 }
+
+sexp:
+  | atom { Atom $1 }
+  | cons { Cons $1 }
