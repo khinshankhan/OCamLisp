@@ -11,3 +11,6 @@
 %token RBRACKET
 
 %token EOF
+
+%start <Sexp.t list> prog
+%%
