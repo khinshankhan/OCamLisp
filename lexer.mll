@@ -29,6 +29,11 @@ let char = '\\' _
 
 rule read =
   parse
+  | '(' { LPAREN }
+  | ')' { RPAREN }
+  | '[' { LBRACKET }
+  | ']' { RBRACKET }
+
   | eof { EOF }
   | _ { raise (SyntaxError ("Unexpected character: " ^ Lexing.lexeme lexbuf)) }
 
