@@ -14,3 +14,7 @@
 
 %start <Sexp.t list> prog
 %%
+
+prog:
+  | EOF       { [] }
+  | sexp prog { $1 :: $2 }
