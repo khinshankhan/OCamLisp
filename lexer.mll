@@ -11,3 +11,18 @@ let next_line lexbuf =
                pos_lnum = pos.pos_lnum + 1
     }
 }
+
+let blank = [' ' '\t' ',']
+let newline = '\n' | '\r' | "\n\r"
+let char = '\\'
+
+let lower = ['a'-'z']
+let upper = ['A'-'Z']
+let alpha = lower | upper
+let int = '-'? ['0'-'9'] ['0'-'9']*
+let float = '-'?['0'-'9']*'.'?['0'-'9']+
+let symbols = ['*' '+' '!' '-' '_' '?' '<' '>' '=' '/' '%' '^' '~']
+let alnum = alpha | int | float
+
+let identifier = (alpha | symbols) (alnum | symbols)*
+let char = '\\' _
