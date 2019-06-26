@@ -1,3 +1,8 @@
+
+%{
+    open Sexp
+         %}
+
 %token <bool> BOOL
 %token <char> CHAR
 %token <string> STRING

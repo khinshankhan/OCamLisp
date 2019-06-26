@@ -42,8 +42,8 @@ rule read =
 
   | '(' { LPAREN }
   | ')' { RPAREN }
-  | '[' { LBRACKET }
-  | ']' { RBRACKET }
+  | '[' { LBRACK }
+  | ']' { RBRACK }
 
   | eof { EOF }
 
