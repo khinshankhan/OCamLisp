@@ -1,2 +1,2 @@
 all:
-	ocamlbuild -use-menhir main.native
+	ocamlbuild -use-menhir -tag thread -use-ocamlfind -quiet -pkg core main.native
