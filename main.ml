@@ -20,10 +20,12 @@ let rec lexer lexbuf =
 let () =
   let argv_list = Array.to_list Sys.argv in
   let channel_name =
-    (match argv_list with
-     | [a] -> stdin
-     | [a; b] -> (open_in b)
-     | _ -> failwith "Invalid number of arguments")
+    begin
+      match argv_list with
+      | [a] -> stdin
+      | [a; b] -> (open_in b)
+      | _ -> failwith "Invalid number of arguments"
+    end
   in
   let lexbuf = Lexing.from_channel channel_name in
   lexer lexbuf
