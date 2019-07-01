@@ -1,0 +1,7 @@
+* Roadmap
+
+
+- Implement Parser
+- Implement Lexer
+- Print out contents of a file
+- Use dijkstra shunting yard algorithm to try to do int operations (+,-)
