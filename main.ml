@@ -18,9 +18,12 @@ let rec lexer lexbuf =
   end
 
 let () =
-  try
-    let filename = Sys.argv.(1) in
-    let lexbuf = Lexing.from_channel (open_in filename) in
-    lexer lexbuf
-  with
-    _ -> exit 0;
+  let argv_list = Array.to_list Sys.argv in
+  let channel_name =
+    (match argv_list with
+     | [a] -> stdin
+     | [a; b] -> (open_in b)
+     | _ -> failwith "Invalid number of arguments")
+  in
+  let lexbuf = Lexing.from_channel channel_name in
+  lexer lexbuf
