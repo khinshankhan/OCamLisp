@@ -1,5 +1,5 @@
 all:
-	ocamlbuild -use-menhir -tag thread -use-ocamlfind -I src/ -quiet -pkg core main.native
+	ocamlbuild -use-menhir -use-ocamlfind -I src/ -I src/reader -I src/eval main.native
 
 clean:
 	@rm -f main.native
