@@ -16,16 +16,6 @@ let sym_lookup = function
      | _ -> failwith "sym fail 2")
   | _ -> failwith "sym fail "
 
-let atomizer t =
-  match t with
-  |  Sexp.Atom t ->
-    begin
-      match t with
-      | `Int i -> i
-      | _ -> failwith "atom fail"
-    end
-  | _ -> failwith "atom fail"
-
 let rec eval_sexp = function
   | Sexp.Cons t ->
     begin
@@ -36,6 +26,15 @@ let rec eval_sexp = function
       | _ -> failwith "cons fail"
     end
   | _ -> failwith "sexp fail"
+and atomizer t =
+  match t with
+  | Sexp.Atom t ->
+    begin
+      match t with
+      | `Int i -> i
+      | _ -> failwith "atom fail"
+    end
+  | _ -> eval_sexp t
 
 let rec eval = function
   | h::t -> print_int (eval_sexp h); print_endline ""; eval t
