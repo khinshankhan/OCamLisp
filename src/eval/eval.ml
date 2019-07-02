@@ -9,6 +9,10 @@ let matcher = function
   | `Tuple ls -> print_endline "stuff in"
 
 
-let rec eval = function
+let rec eval_sexp = function
   | Sexp.Atom t -> matcher t
-  | Sexp.Cons t -> List.iter eval t
+  | Sexp.Cons t -> List.iter eval_sexp t
+
+let rec eval = function
+  | h::t -> eval_sexp h; print_endline ""; eval t
+  | _ -> ()

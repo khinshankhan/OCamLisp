@@ -8,7 +8,7 @@ let noninteractive filename =
   let channel_name = open_in filename in
   let lexbuf = Lexing.from_channel channel_name in
   let sexp = Parser.prog Lexer.read lexbuf in
-  List.iter Eval.eval sexp
+  Eval.eval sexp
 
 let () =
   let argv_list = Array.to_list Sys.argv in
