@@ -5,7 +5,6 @@ type wrapper =
   | Int of int
   | String of string
   | Sym of string
-  | Tuple of wrapper list
   | Nil
 
 let rec convert = function
@@ -16,7 +15,7 @@ let rec convert = function
   | `String s -> String s
   | `Sym s -> Sym s
   | `Tuple [] -> Nil
-  | `Tuple ls -> Tuple (List.map convert ls)
+  | _ -> failwith "unaccounted for"
 
 let matcher = function
   | Bool b -> print_endline "b"
@@ -26,13 +25,19 @@ let matcher = function
   | String s -> print_endline "str"
   | Sym s -> print_endline "sym"
   | Nil -> print_endline "empty"
-  | Tuple ls -> print_endline "stuff in"
+
+let sum n1 n2 =
+  match n1, n2 with
+  | Int x, Int y -> Int (x+y)
+  | Int x, Float y -> Float (float x +. y)
+  | Float x, Int y -> Float (x +. float y)
+  | Float x, Float y -> Float (x +. y)
+  | _ -> failwith "invalid num"
 
 let sym_lookup = function
   | `Sym s ->
     (match s with
-     | "+" -> (+)
-     | "-" -> (-)
+     | "+" -> sum
      | _ -> failwith "sym fail 2")
   | _ -> failwith "sym fail "
 
@@ -42,7 +47,7 @@ let rec eval_sexp = function
       match t with
       | (Sexp.Atom h)::t ->
         let a = List.map atomizer t in
-        List.fold_right (sym_lookup h) a 0
+        List.fold_right (sym_lookup h) a (Int 0)
       | _ -> failwith "cons fail"
     end
   | _ -> failwith "sexp fail"
