@@ -28,9 +28,9 @@ let rec eval_sexp = function
   | _ -> failwith "sexp fail"
 and atomizer t =
   match t with
-  | Sexp.Atom t -> sym_to_wrapper t
+  | Sexp.Atom t -> sym_to_t t
   | _ -> eval_sexp t
 
 let rec eval = function
-  | h::t -> print_wrapper (eval_sexp h); print_endline ""; eval t
+  | h::t -> print_t (eval_sexp h); print_endline ""; eval t
   | _ -> ()

@@ -1,4 +1,4 @@
-type wrapper =
+type t =
     Bool of bool
   | Char of char
   | Float of float
@@ -7,7 +7,7 @@ type wrapper =
   | Sym of string
   | Nil
 
-let rec sym_to_wrapper = function
+let rec sym_to_t = function
   | `Bool b -> Bool b
   | `Char c -> Char c
   | `Float f -> Float f
@@ -17,7 +17,7 @@ let rec sym_to_wrapper = function
   | `Tuple [] -> Nil
   | _ -> failwith "unaccounted for"
 
-let print_wrapper = function
+let print_t = function
   | Bool b -> print_endline "b"
   | Char c -> print_char c
   | Float f -> print_float f
