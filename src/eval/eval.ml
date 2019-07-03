@@ -26,18 +26,18 @@ let matcher = function
   | Sym s -> print_endline "sym"
   | Nil -> print_endline "empty"
 
-let sum n1 n2 =
+let op f1 f2 n1 n2 =
   match n1, n2 with
-  | Int x, Int y -> Int (x+y)
-  | Int x, Float y -> Float (float x +. y)
-  | Float x, Int y -> Float (x +. float y)
-  | Float x, Float y -> Float (x +. y)
+  | Int x, Int y -> Int (f1 x y)
+  | Int x, Float y -> Float (f2 (float x) y)
+  | Float x, Int y -> Float (f2 x (float y))
+  | Float x, Float y -> Float (f2 x y)
   | _ -> failwith "invalid num"
 
 let sym_lookup = function
   | `Sym s ->
     (match s with
-     | "+" -> sum
+     | "+" -> op ( + ) ( +. )
      | _ -> failwith "sym fail 2")
   | _ -> failwith "sym fail "
 
