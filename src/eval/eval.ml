@@ -19,9 +19,9 @@ let rec convert = function
 
 let matcher = function
   | Bool b -> print_endline "b"
-  | Char c -> print_endline "c"
-  | Float f -> print_endline "f"
-  | Int i -> print_endline "i"
+  | Char c -> print_char c
+  | Float f -> print_float f
+  | Int i -> print_int i
   | String s -> print_endline "str"
   | Sym s -> print_endline "sym"
   | Nil -> print_endline "empty"
