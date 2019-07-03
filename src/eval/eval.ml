@@ -38,6 +38,7 @@ let sym_lookup = function
   | `Sym s ->
     (match s with
      | "+" -> op ( + ) ( +. )
+     | "-" -> op ( - ) ( -. )
      | _ -> failwith "sym fail 2")
   | _ -> failwith "sym fail "
 
