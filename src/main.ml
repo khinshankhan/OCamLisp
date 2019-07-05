@@ -1,11 +1,14 @@
 open Parser
 open Lexer
-open Batteries
 
 let interactive =
-  let lexbuf = Lexing.from_input stdin in
-  let sexp = Parser.prog Lexer.read lexbuf in
-  Eval.eval sexp
+  try
+    let lexbuf = Lexing.from_channel stdin in
+      let sexp = Parser.prog Lexer.read lexbuf in
+      Eval.eval sexp;
+      flush stdout;
+  with _ ->
+    exit 0
 
 let noninteractive filename =
   let channel_name = open_in filename in
