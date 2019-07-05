@@ -1,3 +1,7 @@
+let sym_extract = function
+  | `Sym s -> s
+  | _ -> failwith "unaccounted for"
+
 let print_t = function
   | `Bool b -> print_endline "b"
   | `Char c -> print_char c

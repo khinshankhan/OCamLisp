@@ -16,13 +16,18 @@ let sym_lookup = function
      | _ -> failwith "sym fail 2")
   | _ -> failwith "sym fail "
 
+let sym_ops a sym =
+  match (sym_extract sym) with
+  | ("+" | "-") -> List.fold_right (sym_lookup sym) a (`Int 0)
+  | _ -> failwith "unaccounted for"
+
 let rec eval_sexp = function
   | Sexp.Cons t ->
     begin
       match t with
       | (Sexp.Atom h)::t ->
         let a = List.map atomizer t in
-        List.fold_right (sym_lookup h) a (`Int 0)
+        sym_ops a h
       | _ -> failwith "cons fail"
     end
   | _ -> failwith "sexp fail"
