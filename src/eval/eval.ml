@@ -8,6 +8,11 @@ let op f1 f2 n1 n2 =
   | `Float x, `Float y -> `Float (f2 x y)
   | _ -> failwith "invalid num"
 
+let concat s1 s2 =
+  match s1, s2 with
+  | `String x, `String y -> `String (x ^ y)
+  | _ -> failwith "invalid num"
+
 let sym_lookup = function
   | `Sym s ->
     (match s with
@@ -15,17 +20,18 @@ let sym_lookup = function
      | "-" -> op ( - ) ( -. )
      | "*" -> op ( * ) ( *. )
      | "/" -> op ( / ) ( /. )
+     | "concat" -> concat
      | _ -> failwith "sym fail 2")
   | _ -> failwith "sym fail "
 
 let sym_ops a sym =
   match (sym_extract sym) with
   | "print" -> List.iter print a;  sym
-  | ("+" | "-" | "*" | "/") ->
+  | ("+" | "-" | "*" | "/" | "concat") ->
     begin
       match a with
       | h::t -> List.fold_left (sym_lookup sym) h t
-      | _ -> failwith "invalid arithmetic operation"
+      | _ -> failwith "invalid number of arguments for this operation"
     end
   | _ -> failwith "unaccounted for"
 
