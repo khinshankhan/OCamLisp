@@ -11,3 +11,6 @@ let print_t = function
   | `Sym s -> print_endline "sym"
   | `Tuple [] -> print_endline "empty"
   | _ -> failwith "unaccounted for"
+
+let print t =
+  print_t t; print_endline ""

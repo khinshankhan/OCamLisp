@@ -14,16 +14,18 @@ let sym_lookup = function
      | "+" -> op ( + ) ( +. )
      | "-" -> op ( - ) ( -. )
      | "*" -> op ( * ) ( *. )
+     | "/" -> op ( / ) ( /. )
      | _ -> failwith "sym fail 2")
   | _ -> failwith "sym fail "
 
 let sym_ops a sym =
   match (sym_extract sym) with
+  | "print" -> List.iter print a;  sym
   | ("+" | "-") -> List.fold_right (sym_lookup sym) a (`Int 0)
-  | "*" ->
+  | ("*" | "/") ->
     begin
       match a with
-      | h::t -> List.fold_right (sym_lookup sym) t (h)
+      | h::t -> List.fold_left (sym_lookup sym) h t
       | _ -> failwith "invalid arithmetic operation"
     end
   | _ -> failwith "unaccounted for"
@@ -44,5 +46,5 @@ and atomizer t =
   | _ -> eval_sexp t
 
 let rec eval = function
-  | h::t -> print_t (eval_sexp h); print_endline ""; eval t
+  | h::t -> eval_sexp h; eval t
   | _ -> ()
