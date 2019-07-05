@@ -4,5 +4,5 @@ let () =
   | [a] ->
     stdin |> Reader.parse
   | [a; b] ->
-    b|> open_in |> Reader.parse
+    b |> open_in |> Reader.parse
   | _ -> failwith "Invalid number of arguments"
