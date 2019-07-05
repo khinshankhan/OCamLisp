@@ -1,5 +1,5 @@
 all:
-	ocamlbuild -use-menhir -use-ocamlfind -I src/ -I src/reader -I src/syntax -I src/eval main.native
+	ocamlbuild -use-menhir -use-ocamlfind -I src/ -I src/reader -I src/syntax -I src/eval -package batteries main.native
 
 clean:
 	@rm -f main.native
