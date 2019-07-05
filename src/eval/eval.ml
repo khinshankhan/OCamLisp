@@ -21,8 +21,8 @@ let sym_lookup = function
 let sym_ops a sym =
   match (sym_extract sym) with
   | "print" -> List.iter print a;  sym
-  | ("+" | "-") -> List.fold_right (sym_lookup sym) a (`Int 0)
-  | ("*" | "/") ->
+  | "+" -> List.fold_right (sym_lookup sym) a (`Int 0)
+  | ("*" | "/" | "-") ->
     begin
       match a with
       | h::t -> List.fold_left (sym_lookup sym) h t
