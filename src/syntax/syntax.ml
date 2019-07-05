@@ -13,4 +13,4 @@ let print_t = function
   | _ -> failwith "unaccounted for"
 
 let print t =
-  print_t t; print_endline ""
+  print_endline ""; print_t t; print_endline ""

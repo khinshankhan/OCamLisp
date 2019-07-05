@@ -1,5 +1,4 @@
 let () =
-  print_endline "";
   let argv_list = Array.to_list Sys.argv in
   match argv_list with
   | [a] ->
