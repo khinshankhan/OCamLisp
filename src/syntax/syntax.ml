@@ -15,6 +15,7 @@ let print_t = function
   | `String s -> Printf.printf "\"%s\"" s
   | `Sym s -> print_endline s
   | `Tuple [] -> print_endline "Nil"
+  | `Tuple xs -> print_endline "listo"
   | _ -> Error._failwith "unaccounted for"
 
 let print t =
