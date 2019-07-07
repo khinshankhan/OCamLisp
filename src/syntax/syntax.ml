@@ -1,6 +1,6 @@
 let sym_extract = function
   | `Sym s -> s
-  | _ -> failwith "unaccounted for"
+  | _ -> Error._failwith "unaccounted for"
 
 let print_t = function
   | `Bool b ->
@@ -15,7 +15,7 @@ let print_t = function
   | `String s -> Printf.printf "\"%s\"" s
   | `Sym s -> print_endline s
   | `Tuple [] -> print_endline "Nil"
-  | _ -> failwith "unaccounted for"
+  | _ -> Error._failwith "unaccounted for"
 
 let print t =
   print_endline ""; print_t t; print_endline ""

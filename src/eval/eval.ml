@@ -6,12 +6,12 @@ let op f1 f2 n1 n2 =
   | `Int x, `Float y -> `Float (f2 (float x) y)
   | `Float x, `Int y -> `Float (f2 x (float y))
   | `Float x, `Float y -> `Float (f2 x y)
-  | _ -> failwith "invalid num"
+  | _ -> Error._failwith "invalid num"
 
 let concat s1 s2 =
   match s1, s2 with
   | `String x, `String y -> `String (x ^ y)
-  | _ -> failwith "invalid"
+  | _ -> Error._failwith "invalid"
 
 let sym_lookup = function
   | `Sym s ->
@@ -20,8 +20,8 @@ let sym_lookup = function
      | "-" -> op ( - ) ( -. )
      | "*" -> op ( * ) ( *. )
      | "/" -> op ( / ) ( /. )
-     | _ -> failwith "sym fail 2")
-  | _ -> failwith "sym fail "
+     | _ -> Error._failwith "sym fail 2")
+  | _ -> Error._failwith "sym fail "
 
 let sym_ops a sym =
   match (sym_extract sym) with
@@ -30,11 +30,11 @@ let sym_ops a sym =
     begin
       match a with
       | h::t -> List.fold_left (sym_lookup sym) h t
-      | _ -> failwith "invalid number of arguments for this operation"
+      | _ -> Error._failwith "invalid number of arguments for this operation"
     end
   | "concat" ->
      List.fold_left concat (`String "") a
-  | _ -> failwith "unaccounted for"
+  | _ -> Error._failwith "unaccounted for"
 
 let rec eval_sexp = function
   | Sexp.Cons t ->
@@ -43,9 +43,9 @@ let rec eval_sexp = function
       | (Sexp.Atom h)::t ->
         let a = List.map atomizer t in
         sym_ops a h
-      | _ -> failwith "cons fail"
+      | _ -> Error._failwith "cons fail"
     end
-  | _ -> failwith "sexp fail"
+  | _ -> Error._failwith "sexp fail"
 and atomizer t =
   match t with
   | Sexp.Atom t -> t
