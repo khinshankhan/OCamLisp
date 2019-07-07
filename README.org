@@ -10,12 +10,21 @@ opam install menhir
 #+END_SRC
 
 ** Build
-The build can be handled entirely by the Makefile.
+The build can be handled entirely by the =Makefile=.
 
-Bash Instructions:
+Bash instructions:
 #+BEGIN_SRC bash
 # Build from source
 make
 #+END_SRC
 
-If any errors occur, check the generated output.log file.
+If any errors occur, check the generated =output.log= file.
+
+*** Clean
+Note: cleaning the compiled files and anything else generated from the build makes merlin in editors wonky, so it's advised to keep =_build/= while editing or viewing code in an editor using merlin, but this will completely clean.
+
+Bash instructions:
+#+BEGIN_SRC bash
+# Build from source
+make clean
+#+END_SRC
