@@ -1,1 +1,10 @@
 * ocamlisp-lipcrepl
+
+** Prerequisites
+Assuming one has OCaml installed and properly setup, the only non standard package currently is =menhir=.
+
+Bash instructions:
+#+BEGIN_SRC bash
+# Install Menhir
+opam install menhir
+#+END_SRC
