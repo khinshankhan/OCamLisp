@@ -1,5 +1,12 @@
+.PHONY: all clean
+
+OCB_FLAGS = -use-menhir -use-ocamlfind
+SRCS = -I src/ -I src/reader -I src/syntax -I src/eval
+PKGS =
+OCB = ocamlbuild $(OCB_FLAGS) $(SRCS) $(PKG)
+
 all:
-	ocamlbuild -use-menhir -use-ocamlfind -I src/ -I src/reader -I src/syntax -I src/eval main.native
+	 $(OCB) main.native
 
 clean:
 	@rm -f main.native
@@ -7,3 +14,4 @@ clean:
 	@rm -f src/parser.ml src/parser.mli
 	@rm -f src/lexer.ml
 	@rm -rf _build
+	clear
