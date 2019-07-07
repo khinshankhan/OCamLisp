@@ -44,7 +44,7 @@ The binary created after build instructions is =main.native=. There are two ways
 ./main.native filename
 #+END_SRC
 
-For simplicity's sake, I've included a couple of files in the =sample/ directory. You can do for example
+For simplicity's sake, I've included a couple of files in the =sample/ directory=. You can do for example
 #+BEGIN_EXAMPLE
 ./main.native sample/add.el
 #+END_EXAMPLE
