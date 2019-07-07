@@ -1,57 +1,49 @@
-#+OPTIONS: TeX:t LaTeX:t
 #+OPTIONS: toc:nil
-#+OPTIONS: \n:nil
-#+LATEX: \setlength\parindent{0pt}
-#+LaTeX_CLASS: article
-#+LaTeX_HEADER: \usepackage{amsmath}
-#+LaTeX_HEADER: \usepackage{hyperref}
-#+LaTeX_HEADER: \usepackage{fancyhdr}
-#+LATeX_HEADER: \usepackage[margin=1.0in]{geometry}
-
-\pagestyle{fancy}
-\rhead{Khinshan Khan}
-\lhead{FP in OCaml Report}
-
-#+BEGIN_EXPORT latex
-\begin{titlepage}
-\begin{center}
-\vspace{2cm}
-{\Large  FP in OCaml Report\par}
-\vspace{2cm}
-{\Large
-A Short and Sweet Dive\\
-into\\
-Interpreters with OCaml
-\par}
-\vspace{2cm}
-\vspace{2cm}
-\vspace{2cm}
-{\large Jul 7th 2019}
-\end{center}
-\vfill
-Written by:\\
-\\
-Khinshan Khan\\
-Using emacs org-mode and latex, as well as embed languages. \\
-\\
-Note: Table of Contents is hyperlinked to pages within the document, and mentioned of within context, "here" should hyperlinked to external links. Some PDF viewers may not support this, but will render the text fine. Most should support it, as even opening this in a browser like Google Chrome works.\\
-\\
-Enjoy.
-\end{titlepage}
-
-\tableofcontents
-\pagebreak
-#+END_EXPORT
 
 * Introduction
 This project is a Lisp interpreter implemented in OCaml to evaluate basic Lisp code. This Lisp resembles ELisp the most closely, as I'm more familiar with it. Although this means I'll forgo rational types, a way to represent any rational number without precision errors. However, this is not completely ELisp, as it never was meant to be. This project more so explored how to utilize OCaml to evaluate Lisp code. It exposed me to ocamllex, menhir, sexp, and a deeper appreciation for pattern matching.
 
 * Parsing and Lexing
-The most critical part of the project is probably the lexer and parser. Lisp is a nice language to use as it consists of S-expressions (symbolic expressions, I will use the shorthand sexp). I decided to take a very list oriented approach. I shall gloss over various things such as prog in =parser.mly=. The important sexp I defined was either an atom or cons. A cons would simply be a list of sexp, delimited by surrounding =()=. An atom is much more complex, it's a single "unit" of either an int, float, bool, string, char, or a sexp list. To be exact, the type is
+The most critical and difficult part of the project is probably the lexer and parser. Making this well defined required me to understand types a bit more deeply, as it would determine how much easier or harder (and like spaghetti code) my project would have. Lisp is a nice language to use as it consists of S-expressions (symbolic expressions, I will use the shorthand sexp). I decided to take a very list oriented approach. I shall gloss over various things such as prog in =parser.mly=. The important sexp I defined was either an atom or cons. A cons would simply be a list of sexp, delimited by surrounding =()=. An atom is much more complex, it's a single "unit" of either an int, float, bool, string, char, or a sexp list. To be exact, the type is
 #+BEGIN_SRC ocaml
-type t =
-  | Atom of [ `Int of int | `Float of float | `Bool of bool | `String of string | `Char of char | `Sym of string | `Tuple of t list]
-| Cons of t list
+  type t =
+    | Atom of [
+  `Int of int | `Float of float | `Bool of bool | `String of string | `Char of char | `Sym of string | `Tuple of t list
+  ]
+  | Cons of t list
 #+END_SRC
 
 where units are delimited by at least one space (extra non important spaces are ignored).
+
+* Taking in input
+I actually had a little difficulty here too, because I didnt really understand the "Lexing" methods and the examples seemed to use the =Batteries= module, but never specified it, so I have no idea where =Lexing.from_input= was coming from. However, the fix for that was simply creating a lexbuffer based on stdin or the file opened throwing it into a surrounding =try with= block. However, the form
+#+BEGIN_SRC ocaml
+  try
+  with _ ->
+    exit 0
+#+END_SRC
+ created some sort of blocking when I tried to make it modular in my =main.ml= to support interactive and non interactive. However, the fix was rather easy: simple throw it into a module and call that instead.
+
+* Eval
+The type makes it rather easy to evaluate Lisp code, as it follows prefix notation. So to evaluate a single cons, the first argument in the list will be what is applied to the rest of the atoms of the list. Then, if another cons is encounter within the cons, simple evaluate that cons as well. Eventually, everything will end up as a single atom. This was a bit tricky, and I had to use a mutually recursive function:
+#+BEGIN_SRC ocaml
+let rec eval_sexp = function
+  | Sexp.Cons t ->
+    begin
+      match t with
+      | (Sexp.Atom h)::t ->
+        let a = List.map atomizer t in
+        sym_ops a h
+      | _ -> Error._failwith "cons fail"
+    end
+  | _ -> Error._failwith "sexp fail"
+and atomizer t =
+  match t with
+  | Sexp.Atom t -> t
+  | _ -> eval_sexp t
+#+END_SRC
+
+However, this made everything a simpler. Now, I only had to well define =sym_ops= and never touch anything in a different form, ie I only had to work with the form =(function argument-list)=. In =sym_ops=, I matched the function with what the function should do with the list.
+
+* Variables and Functions
+I didn't get to implement this, but it seems easy enough, given my current structure. Theoretically, I only need to pass around an associative list of symbol-value. =setq= would be as simple as storing the symbol and its value in said list, and =sym_ops= would first look through this list and then through the "builtins".

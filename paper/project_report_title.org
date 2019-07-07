@@ -1,0 +1,37 @@
+#+OPTIONS: TeX:t LaTeX:t
+#+OPTIONS: toc:nil
+#+OPTIONS: \n:nil
+#+LATEX: \setlength\parindent{0pt}
+#+LaTeX_CLASS: article
+#+LaTeX_HEADER: \usepackage{amsmath}
+#+LaTeX_HEADER: \usepackage{hyperref}
+#+LaTeX_HEADER: \usepackage{fancyhdr}
+#+LATeX_HEADER: \usepackage[margin=1.0in]{geometry}
+
+#+BEGIN_EXPORT latex
+\begin{titlepage}
+\begin{center}
+\vspace{2cm}
+{\Large  FP in OCaml Report\par}
+\vspace{2cm}
+{\Large
+A Short and Sweet Dive\\
+into\\
+Interpreters with OCaml
+\par}
+\vspace{2cm}
+\vspace{2cm}
+\vspace{2cm}
+{\large Jul 7th 2019}
+\end{center}
+\vfill
+Written by:\\
+\\
+Khinshan Khan\\
+Using emacs org-mode, latex, html (for code block minting), as well as embed languages. \\
+\\
+Enjoy.
+\end{titlepage}
+
+\pagebreak
+#+END_EXPORT
