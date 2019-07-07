@@ -6,7 +6,7 @@ PKGS =
 OCB = ocamlbuild $(OCB_FLAGS) $(SRCS) $(PKG)
 
 all:
-	 $(OCB) main.native
+	 @$(OCB) main.native > output.log
 
 clean:
 	@rm -f main.native
