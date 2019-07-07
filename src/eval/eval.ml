@@ -8,9 +8,17 @@ let op f1 f2 n1 n2 =
   | `Float x, `Float y -> `Float (f2 x y)
   | _ -> Error._failwith "invalid num"
 
-let concat s1 s2 =
+let ascii_to_string n =
+  match n with
+  | Sexp.Atom `Int i ->
+    `String (Printf.sprintf "%c" (Char.chr i))
+  | _ -> Error._failwith "invalid sequence"
+let rec concat s1 s2 =
   match s1, s2 with
   | `String x, `String y -> `String (x ^ y)
+  | `String x, `Tuple xs ->
+    let stringified = List.map ascii_to_string xs in
+    concat s1 (List.fold_left concat (`String "") stringified)
   | _ -> Error._failwith "invalid"
 
 let sym_lookup = function
