@@ -45,3 +45,13 @@ Enjoy.
 
 * Introduction
 This project is a Lisp interpreter implemented in OCaml to evaluate basic Lisp code. This Lisp resembles ELisp the most closely, as I'm more familiar with it. Although this means I'll forgo rational types, a way to represent any rational number without precision errors. However, this is not completely ELisp, as it never was meant to be. This project more so explored how to utilize OCaml to evaluate Lisp code. It exposed me to ocamllex, menhir, sexp, and a deeper appreciation for pattern matching.
+
+* Parsing and Lexing
+The most critical part of the project is probably the lexer and parser. Lisp is a nice language to use as it consists of S-expressions (symbolic expressions, I will use the shorthand sexp). I decided to take a very list oriented approach. I shall gloss over various things such as prog in =parser.mly=. The important sexp I defined was either an atom or cons. A cons would simply be a list of sexp, delimited by surrounding =()=. An atom is much more complex, it's a single "unit" of either an int, float, bool, string, char, or a sexp list. To be exact, the type is
+#+BEGIN_SRC ocaml
+type t =
+  | Atom of [ `Int of int | `Float of float | `Bool of bool | `String of string | `Char of char | `Sym of string | `Tuple of t list]
+| Cons of t list
+#+END_SRC
+
+where units are delimited by at least one space (extra non important spaces are ignored).
