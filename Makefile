@@ -1,7 +1,7 @@
 .PHONY: all clean
 
 OCB_FLAGS = -use-menhir -use-ocamlfind
-SRC = -I src/ -I src/reader -I src/syntax -I src/eval
+SRC = -I src/ -I src/reader -I src/syntax -I src/eval -I src/error
 PKG =
 OCB = ocamlbuild $(OCB_FLAGS) $(SRC) $(PKG)
 
