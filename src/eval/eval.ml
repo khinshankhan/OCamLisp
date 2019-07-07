@@ -31,14 +31,28 @@ let sym_lookup = function
      | _ -> Error._failwith "sym fail 2")
   | _ -> Error._failwith "sym fail "
 
-let sym_ops a sym =
-  match (sym_extract sym) with
+let rec sym_ops a sym =
+  let s = sym_extract sym in
+  match s with
   | "print" -> List.iter print a;  sym
   | ("+" | "-" | "*" | "/") ->
     begin
       match a with
+      | h::[] ->
+        begin
+          match s with
+          | ("+" | "*") -> h
+          | "/" -> `Int 0
+          | "-" -> sym_ops [h; `Int (-1)] (`Sym "*")
+        end
       | h::t -> List.fold_left (sym_lookup sym) h t
-      | _ -> Error._failwith "invalid number of arguments for this operation"
+      | _ ->
+        begin
+          match s with
+          | ("+" | "-") -> `Int 0
+          | "*" -> `Int 1
+          | "/" -> Error._failwith "Wrong number of arguments: /, 0"
+        end
     end
   | "concat" ->
      List.fold_left concat (`String "") a
