@@ -5,7 +5,6 @@ Assuming one has OCaml installed and properly setup, the only non standard packa
 
 Bash instructions:
 #+BEGIN_SRC bash
-# Install Menhir
 opam install menhir
 #+END_SRC
 
@@ -14,7 +13,6 @@ The build can be handled entirely by the =Makefile=.
 
 Bash instructions:
 #+BEGIN_SRC bash
-# Build from source
 make
 #+END_SRC
 
@@ -25,6 +23,38 @@ Note: cleaning the compiled files and anything else generated from the build mak
 
 Bash instructions:
 #+BEGIN_SRC bash
-# Build from source
 make clean
 #+END_SRC
+
+** Run
+The binary created after build instructions is =main.native=. There are two ways to run this project:
+
+*** Using a file
+#+BEGIN_SRC
+./main.native filename
+#+END_SRC
+
+For simplicity's sake, I've included a couple of files in the =sample/ directory. You can do for example
+#+BEGIN_EXAMPLE
+./main.native sample/add.el
+#+END_EXAMPLE
+
+And if you want to check if the output is proper, you can view the file and evaluate yourself. Or since this lisp is very closely based on elisp, if have emacs installed, you can do
+
+#+BEGIN_EXAMPLE
+emacs --script sample/add.el
+#+END_EXAMPLE
+
+*** REP +L+ (read eval print)
+#+BEGIN_SRC
+./main.native
+(your list instructions here)
+#+END_SRC
+
+For example:
+#+BEGIN_EXAMPLE
+./main.native
+(print (+ 5 7))
+#+END_EXAMPLE
+
+Currently, to end instructions, enter =CTR-D=. If you enter an invalid expression (sexp) such as =(print 8))=, it fails.
