@@ -8,3 +8,14 @@ Bash instructions:
 # Install Menhir
 opam install menhir
 #+END_SRC
+
+** Build
+The build can be handled entirely by the Makefile.
+
+Bash Instructions:
+#+BEGIN_SRC bash
+# Build from source
+make
+#+END_SRC
+
+If any errors occur, check the generated output.log file.
