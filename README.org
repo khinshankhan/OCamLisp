@@ -58,7 +58,7 @@ emacs --script sample/add.el
 *** REP +L+ (read eval print)
 #+BEGIN_SRC
 ./main.native
-(your list instructions here)
+(your lisp instructions here)
 #+END_SRC
 
 For example:
