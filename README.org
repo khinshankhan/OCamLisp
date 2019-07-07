@@ -1,5 +1,15 @@
 * ocamlisp-lipcrepl
 
+** Summary
+This is a Lisp interpreter implemented in OCaml. It most closely resembles elisp.
+Currently, it supports:
+
+- [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Output-Functions.html][print]] function (with varargs, unlike many lisps...)
+- [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Arithmetic-Operations.html][basic arithmetic operators]] (+-*/)
+- [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Strings.html][concat]] function
+- read lisp from a single file (regardless of extension as of now)
+- REP +L+ (read eval print)
+
 ** Prerequisites
 Assuming one has OCaml installed and properly setup, the only non standard package currently is =menhir=.
 
