@@ -1,0 +1,47 @@
+#+OPTIONS: TeX:t LaTeX:t
+#+OPTIONS: toc:nil
+#+OPTIONS: \n:nil
+#+LATEX: \setlength\parindent{0pt}
+#+LaTeX_CLASS: article
+#+LaTeX_HEADER: \usepackage{amsmath}
+#+LaTeX_HEADER: \usepackage{hyperref}
+#+LaTeX_HEADER: \usepackage{fancyhdr}
+#+LATeX_HEADER: \usepackage[margin=1.0in]{geometry}
+
+\pagestyle{fancy}
+\rhead{Khinshan Khan}
+\lhead{FP in OCaml Report}
+
+#+BEGIN_EXPORT latex
+\begin{titlepage}
+\begin{center}
+\vspace{2cm}
+{\Large  FP in OCaml Report\par}
+\vspace{2cm}
+{\Large
+A Short and Sweet Dive\\
+into\\
+Interpreters with OCaml
+\par}
+\vspace{2cm}
+\vspace{2cm}
+\vspace{2cm}
+{\large Jul 7th 2019}
+\end{center}
+\vfill
+Written by:\\
+\\
+Khinshan Khan\\
+Using emacs org-mode and latex, as well as embed languages. \\
+\\
+Note: Table of Contents is hyperlinked to pages within the document, and mentioned of within context, "here" should hyperlinked to external links. Some PDF viewers may not support this, but will render the text fine. Most should support it, as even opening this in a browser like Google Chrome works.\\
+\\
+Enjoy.
+\end{titlepage}
+
+\tableofcontents
+\pagebreak
+#+END_EXPORT
+
+* Introduction
+This project is a Lisp interpreter implemented in OCaml to evaluate basic Lisp code. This Lisp resembles ELisp the most closely, as I'm more familiar with it. Although this means I'll forgo rational types, a way to represent any rational number without precision errors. However, this is not completely ELisp, as it never was meant to be. This project more so explored how to utilize OCaml to evaluate Lisp code. It exposed me to ocamllex, menhir, sexp, and a deeper appreciation for pattern matching.
