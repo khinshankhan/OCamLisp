@@ -44,6 +44,7 @@ let rec sym_ops a sym =
           | ("+" | "*") -> h
           | "/" -> `Int 0
           | "-" -> sym_ops [h; `Int (-1)] (`Sym "*")
+          | _ -> Error._failwith "impossible"
         end
       | h::t -> List.fold_left (sym_lookup sym) h t
       | _ ->
@@ -52,6 +53,7 @@ let rec sym_ops a sym =
           | ("+" | "-") -> `Int 0
           | "*" -> `Int 1
           | "/" -> Error._failwith "Wrong number of arguments: /, 0"
+          | _ -> Error._failwith "impossible"
         end
     end
   | "concat" ->
@@ -68,10 +70,9 @@ let rec eval_sexp = function
       | _ -> Error._failwith "cons fail"
     end
   | _ -> Error._failwith "sexp fail"
-and atomizer t =
-  match t with
+and atomizer = function
   | Sexp.Atom t -> t
-  | _ -> eval_sexp t
+  | t -> eval_sexp t
 
 let rec eval = function
   | h::t -> eval_sexp h; eval t
