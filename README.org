@@ -84,6 +84,6 @@ For example:
 (print (+ 5 7))
 #+END_EXAMPLE
 
-Currently, to end instructions, enter =CTR-D=. If you enter an invalid expression (sexp) such as =(print 8))=, it fails. When you start the expression on the line, it should end on the line as well.
+Currently, to end instructions, enter =enter=. To quit gracefully enter =CTR-D=. If you enter an invalid expression (sexp) such as =(print 8))=, it fails. When you start the expression on the line, it should end on the line as well.
 
 You can use =rlwrap ./main.native= for a slightly better repl experience (up, down, left, right arrows become available).
