@@ -8,7 +8,7 @@ Currently, it supports:
 - [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Arithmetic-Operations.html][basic arithmetic operators]] (+-*/)
 - [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Strings.html][concat]] function
 - read lisp from a single file (regardless of extension as of now)
-- REP +L+ (read eval print)
+- REPL
 
 ** Prerequisites
 Assuming one has OCaml installed and properly setup, the non standard packages currently are =menhir= and =Batteries=.
@@ -56,7 +56,7 @@ And if you want to check if the output is proper, you can view the file and eval
 emacs --script sample/add.el
 #+END_EXAMPLE
 
-*** REP +L+ (read eval print)
+*** REPL (read eval print loop)
 #+BEGIN_SRC
 ./main.native
 (your lisp instructions here)
@@ -68,4 +68,6 @@ For example:
 (print (+ 5 7))
 #+END_EXAMPLE
 
-Currently, to end instructions, enter =CTR-D=. If you enter an invalid expression (sexp) such as =(print 8))=, it fails.
+Currently, to end instructions, enter =CTR-D=. If you enter an invalid expression (sexp) such as =(print 8))=, it fails. When you start the expression on the line, it should end on the line as well.
+
+You can use =rlwrap ./main.native= for a slightly better repl experience (up, down, left, right arrows become available).
