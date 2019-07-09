@@ -1,7 +1,7 @@
 open Batteries
 
 let noninteractive filename env =
-  let env = filename |> open_in |> Lexing.from_channel |> Parser.prog Lexer.read |> Eval.eval
+  let env = filename |> open_in |> Lexing.from_channel |> Parser.prog Lexer.read |> Eval.eval env
   in
   ()
 
@@ -11,7 +11,7 @@ let rec interactive env =
       try
         Printf.printf "> ";
         flush stdout;
-        let env = IO.read_line IO.stdin |> IO.input_string |> Lexing.from_input |> Parser.prog Lexer.read |> Eval.eval
+        let env = IO.read_line IO.stdin |> IO.input_string |> Lexing.from_input |> Parser.prog Lexer.read |> Eval.eval env
         in
         Some env
       with
