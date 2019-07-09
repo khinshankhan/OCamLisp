@@ -11,11 +11,12 @@ Currently, it supports:
 - REP +L+ (read eval print)
 
 ** Prerequisites
-Assuming one has OCaml installed and properly setup, the only non standard package currently is =menhir=.
+Assuming one has OCaml installed and properly setup, the non standard packages currently are =menhir= and =Batteries=.
 
 Bash instructions:
 #+BEGIN_SRC bash
 opam install menhir
+opam install Batteries
 #+END_SRC
 
 ** Build
