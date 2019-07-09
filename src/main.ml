@@ -5,4 +5,4 @@ let () =
     Reader.interactive []
   | [a; b] ->
     Reader.noninteractive b []
-  | _ -> Error._failwith "Invalid number of arguments"
+  | _ -> failwith "Invalid number of arguments"

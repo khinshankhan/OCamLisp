@@ -1,6 +1,6 @@
 let sym_extract = function
   | `Sym s -> s
-  | _ -> Error._failwith "unaccounted for"
+  | _ -> failwith "unaccounted for"
 
 let print_t = function
   | `Bool b ->
@@ -16,7 +16,7 @@ let print_t = function
   | `Sym s -> print_endline s
   | `Tuple [] -> print_endline "Nil"
   | `Tuple xs -> print_endline "listo"
-  | _ -> Error._failwith "unaccounted for"
+  | _ -> failwith "unaccounted for"
 
 let print t =
   print_endline ""; print_t t; print_endline ""
