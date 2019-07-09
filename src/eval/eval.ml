@@ -13,6 +13,7 @@ let ascii_to_string n =
   | Sexp.Atom `Int i ->
     `String (Printf.sprintf "%c" (Char.chr i))
   | _ -> Error._failwith "invalid sequence"
+
 let rec concat s1 s2 =
   match s1, s2 with
   | `String x, `String y -> `String (x ^ y)
@@ -29,7 +30,7 @@ let sym_lookup = function
      | "*" -> op ( * ) ( *. )
      | "/" -> op ( / ) ( /. )
      | _ -> Error._failwith "sym fail 2")
-  | _ -> Error._failwith "sym fail "
+  | _ -> Error._failwith "sym fail"
 
 let rec sym_ops a sym =
   let s = sym_extract sym in
