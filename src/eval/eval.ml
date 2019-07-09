@@ -80,13 +80,6 @@ let rec sym_ops env a sym =
     (env, List.fold_left concat (`String "") a)
   | _ -> failwith "unaccounted for"
 
-let rec lookup s = function
-  | (sym, value)::t ->
-    if s = sym
-    then Some value
-    else lookup s t
-  | _ -> None
-
 let rec eval_sexp env = function
   | Sexp.Cons t ->
     begin
@@ -100,12 +93,12 @@ let rec eval_sexp env = function
   | _ -> failwith "sexp fail"
 and atomizer env = function
   | Sexp.Atom t ->
-    let looked = lookup t env in
+    let looked = Syntax.lookup t env in
     begin
-    match looked with
-    | Some v -> (env, v)
-    | None -> (env, t)
-              end
+      match looked with
+      | Some v -> (env, v)
+      | None -> (env, t)
+    end
   | t -> eval_sexp env t
 
 let rec eval env = function

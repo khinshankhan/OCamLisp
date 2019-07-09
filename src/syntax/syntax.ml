@@ -1,3 +1,10 @@
+let rec lookup s = function
+  | (sym, value)::t ->
+    if s = sym
+    then Some value
+    else lookup s t
+  | _ -> None
+
 let sym_extract = function
   | `Sym s -> s
   | _ -> failwith "unaccounted for"
