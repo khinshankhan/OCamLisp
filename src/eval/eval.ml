@@ -77,4 +77,4 @@ and atomizer = function
 
 let rec eval = function
   | h::t -> eval_sexp h; eval t
-  | _ -> ()
+  | _ -> []
