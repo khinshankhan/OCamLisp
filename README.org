@@ -11,7 +11,8 @@ Currently, it supports:
 - REPL
 - Variables
 
-  - This is a work in progress, currently you set a variable once and then use it. That is to say, you can have
+*** Variables
+- This is a work in progress, currently you set a variable once and then use it. That is to say, you can have
 #+BEGIN_EXAMPLE
 (setq x 55)
 (print x)
@@ -19,7 +20,7 @@ Currently, it supports:
 (setq y 99)
 (print y)
 #+END_EXAMPLE
-  - But it breaks when you do for example
+- But it breaks when you do for example
 #+BEGIN_EXAMPLE
 (setq y 0)
 (setq y 1)
