@@ -2,7 +2,7 @@
 
 OCB_FLAGS = -use-menhir -use-ocamlfind
 SRC = -I src/ -I src/reader -I src/syntax -I src/eval -I src/error
-PKG =
+PKG = -package batteries
 OCB = ocamlbuild $(OCB_FLAGS) $(SRC) $(PKG)
 
 all:
