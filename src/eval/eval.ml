@@ -44,7 +44,7 @@ let rec sym_ops env a sym =
       | [x; y] ->
         begin
           match x with
-          | `Sym s -> ([(`Sym "x", `Int 0)], `Tuple [])
+          | `Sym s -> ((`Sym s, y)::env, `Tuple [])
           | _ -> failwith "expected a variable type"
         end
       | _ -> failwith "this function expected 2 arguments"
