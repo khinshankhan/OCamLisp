@@ -22,35 +22,33 @@ let rec concat s1 s2 =
     concat s1 (List.fold_left concat (`String "") stringified)
   | _ -> failwith "invalid"
 
-let rec lookup s = function
-  | (sym, value)::t ->
-    if s = sym
-    then Some value
-    else lookup s t
-  | [] -> None
-
 let sym_lookup env = function
   | `Sym s ->
-    let looked = lookup s env in
     begin
-      match looked with
-      | Some v -> v
-      | None ->
-        begin
-          match s with
-          | "+" -> op ( + ) ( +. )
-          | "-" -> op ( - ) ( -. )
-          | "*" -> op ( * ) ( *. )
-          | "/" -> op ( / ) ( /. )
-          | _ -> failwith "symbol not recognized"
-        end
+      match s with
+      | "+" -> op ( + ) ( +. )
+      | "-" -> op ( - ) ( -. )
+      | "*" -> op ( * ) ( *. )
+      | "/" -> op ( / ) ( /. )
+      | _ -> failwith "symbol not recognized"
     end
   | _ -> failwith "invalid symbol"
 
 let rec sym_ops env a sym =
   let s = sym_extract sym in
   match s with
-  | "setq" -> (env, `Tuple [])
+  | "setq" ->
+    begin
+      match a with
+      | [x] -> failwith "this function expected 2 arguments"
+      | [x; y] ->
+        begin
+          match x with
+          | `Sym s -> ([(`Sym "x", `Int 0)], `Tuple [])
+          | _ -> failwith "expected a variable type"
+        end
+      | _ -> failwith "this function expected 2 arguments"
+    end
   | "print" -> List.iter print a; (env, sym)
   | ("+" | "-" | "*" | "/") ->
     let ret =
@@ -82,6 +80,13 @@ let rec sym_ops env a sym =
     (env, List.fold_left concat (`String "") a)
   | _ -> failwith "unaccounted for"
 
+let rec lookup s = function
+  | (sym, value)::t ->
+    if s = sym
+    then Some value
+    else lookup s t
+  | _ -> None
+
 let rec eval_sexp env = function
   | Sexp.Cons t ->
     begin
@@ -94,7 +99,13 @@ let rec eval_sexp env = function
     end
   | _ -> failwith "sexp fail"
 and atomizer env = function
-  | Sexp.Atom t -> (env, t)
+  | Sexp.Atom t ->
+    let looked = lookup t env in
+    begin
+    match looked with
+    | Some v -> (env, v)
+    | None -> (env, t)
+              end
   | t -> eval_sexp env t
 
 let rec eval env = function
