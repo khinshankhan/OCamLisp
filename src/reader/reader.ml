@@ -5,16 +5,21 @@ let noninteractive filename env =
   in
   ()
 
-let rec interactive_wrapper env =
-  begin
-    try
-      Printf.printf "> ";
-      flush stdout;
-      IO.read_line IO.stdin |> IO.input_string |> Lexing.from_input |> Parser.prog Lexer.read |> Eval.eval
-      |> interactive
-    with
-    | BatInnerIO.No_more_input -> print_endline "logout"
-    | Failure msg -> print_endline msg
-  end
-and interactive env =
-  interactive_wrapper env
+let rec interactive env =
+  let rec interactive_wrapper env =
+    begin
+      try
+        Printf.printf "> ";
+        flush stdout;
+        let env = IO.read_line IO.stdin |> IO.input_string |> Lexing.from_input |> Parser.prog Lexer.read |> Eval.eval
+        in
+        `Tuple env
+      with
+      | BatInnerIO.No_more_input -> print_endline ""; `String "logout"
+      | Failure msg -> `String msg
+    end
+  in
+  match interactive_wrapper env with
+  | `Tuple env -> interactive env
+  | `String msg -> print_endline msg
+  | _ -> print_endline "Something went horribly wrong"
