@@ -1,0 +1,6 @@
+(setq x 55)
+(print x)
+(print (+ x 5))
+(setq y 99)
+(print y)
+(print (+ (* y 2) -18 20))
