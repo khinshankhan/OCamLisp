@@ -85,14 +85,26 @@ let rec eval_sexp env = function
     begin
       match t with
       | (Sexp.Atom h)::t ->
-        let a = List.map (atomizer env) t in
-        let a = List.map (fun (_, y) -> y) a in
-        sym_ops env a h
+        let a =
+        begin
+          match h with
+          | `Sym s ->
+            if s = "setq"
+            then List.map (atomizer env) t
+            else List.map (atomizerl env) t
+          | _ -> List.map (atomizer env) t
+        end
+        in
+      let a = List.map (fun (_, y) -> y) a in
+      sym_ops env a h
       | _ -> failwith "cons fail"
     end
   | _ -> failwith "sexp fail"
 and atomizer env = function
-  | Sexp.Atom t ->
+  | Sexp.Atom t -> (env, t)
+  | t -> eval_sexp env t
+and atomizerl env = function
+    | Sexp.Atom t ->
     let looked = Syntax.lookup t env in
     begin
       match looked with

@@ -20,7 +20,7 @@ Currently, it supports:
 (setq y 99)
 (print y)
 #+END_EXAMPLE
-- But it breaks when you do for example
+- This now works as expected (scoped) and no longer breaks when you do for example
 #+BEGIN_EXAMPLE
 (setq y 0)
 (setq y 1)
