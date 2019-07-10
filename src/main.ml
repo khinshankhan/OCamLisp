@@ -1,8 +1,11 @@
 let () =
-  let argv_list = Array.to_list Sys.argv in
-  match argv_list with
-  | [a] ->
-    Reader.interactive []
-  | [a; b] ->
-    Reader.noninteractive b []
-  | _ -> failwith "Invalid number of arguments"
+  let rec main env = function
+    | [] ->
+      Reader.interactive env; ()
+    | a::[] ->
+      Reader.noninteractive a env; ()
+    | h::t ->
+      let env = Reader.noninteractive h env in
+      main env t
+  in
+  main [] (Sys.argv |> Array.to_list |> List.tl)

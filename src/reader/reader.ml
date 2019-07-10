@@ -1,9 +1,7 @@
 open Batteries
 
 let noninteractive filename env =
-  let env = filename |> open_in |> Lexing.from_channel |> Parser.prog Lexer.read |> Eval.eval env
-  in
-  ()
+  filename |> open_in |> Lexing.from_channel |> Parser.prog Lexer.read |> Eval.eval env
 
 let rec interactive env =
   let rec interactive_wrapper env =
