@@ -9,10 +9,11 @@ Currently, it supports:
 - [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Strings.html][concat]] function
 - read lisp from a single file (regardless of extension as of now)
 - REPL
+- lisp can be complex and nested 
 - Variables
 
 *** Variables
-- This is a work in progress, currently you set a variable once and then use it. That is to say, you can have
+- This is a work in progress, a variable at least once and then use it. That is to say, you can have
 #+BEGIN_EXAMPLE
 (setq x 55)
 (print x)
